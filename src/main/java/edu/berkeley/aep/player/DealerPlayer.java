@@ -19,6 +19,8 @@ public class DealerPlayer extends Player {
     public BlackjackMove play() {
         if (score() == BlackjackEngine.BUST) {
             return BlackjackMove.BUST;
+        } else if (softScore() < MINSCORE && score() != BlackjackEngine.THRESHOLD) {
+            return BlackjackMove.HIT;
         } else {
             return BlackjackMove.STAND;
         }

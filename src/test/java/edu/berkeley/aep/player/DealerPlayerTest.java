@@ -32,4 +32,13 @@ public class DealerPlayerTest {
         dp.takeCard(new Card(Rank.ACE, Suite.SPADES));
         assertEquals(BlackjackMove.STAND, dp.play());
     }
+
+    @Test
+    public void dealerShouldHitWithHandValue10() {
+        BlackjackEngine mockEngine = Mockito.mock(BlackjackEngine.class);
+        DealerPlayer dp = new DealerPlayer(mockEngine);
+        dp.takeCard(new Card(Rank.FOUR, Suite.SPADES));
+        dp.takeCard(new Card(Rank.SIX, Suite.SPADES));
+        assertEquals(BlackjackMove.HIT, dp.play());
+    }
 }
