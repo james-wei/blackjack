@@ -9,6 +9,8 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import static junit.framework.TestCase.assertEquals;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by jwei on 4/25/16.
@@ -40,5 +42,35 @@ public class DealerPlayerTest {
         dp.takeCard(new Card(Rank.FOUR, Suite.SPADES));
         dp.takeCard(new Card(Rank.SIX, Suite.SPADES));
         assertEquals(BlackjackMove.HIT, dp.play());
+    }
+
+    @Test
+    public void dealerShouldHitOnSoft17() {
+        BlackjackEngine mockEngine = Mockito.mock(BlackjackEngine.class);
+        when(mockEngine.opponentScore(any(Player.class))).thenReturn(16);
+        DealerPlayer dp = new DealerPlayer(mockEngine);
+        dp.takeCard(new Card(Rank.ACE, Suite.SPADES));
+        dp.takeCard(new Card(Rank.SIX, Suite.SPADES));
+        assertEquals(BlackjackMove.HIT, dp.play());
+    }
+
+    @Test
+    public void dealerShouldHitWithHandValue17AndOpponentScore18() {
+        BlackjackEngine mockEngine = Mockito.mock(BlackjackEngine.class);
+        when(mockEngine.opponentScore(any(Player.class))).thenReturn(18);
+        DealerPlayer dp = new DealerPlayer(mockEngine);
+        dp.takeCard(new Card(Rank.TEN, Suite.SPADES));
+        dp.takeCard(new Card(Rank.SEVEN, Suite.SPADES));
+        assertEquals(BlackjackMove.HIT, dp.play());
+    }
+
+    @Test
+    public void dealerShouldStandWithHandValue17AndOpponentScore16() {
+        BlackjackEngine mockEngine = Mockito.mock(BlackjackEngine.class);
+        when(mockEngine.opponentScore(any(Player.class))).thenReturn(16);
+        DealerPlayer dp = new DealerPlayer(mockEngine);
+        dp.takeCard(new Card(Rank.TEN, Suite.SPADES));
+        dp.takeCard(new Card(Rank.SEVEN, Suite.SPADES));
+        assertEquals(BlackjackMove.STAND, dp.play());
     }
 }
