@@ -1,6 +1,8 @@
 package edu.berkeley.aep.deck;
 
 /**
+ * Understands the suite of a playing card
+ *
  * Created by jwei on 4/5/16.
  */
 public enum Suite {
