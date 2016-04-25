@@ -23,4 +23,13 @@ public class DealerPlayerTest {
         dp.takeCard(new Card(Rank.KING, Suite.SPADES));
         assertEquals(BlackjackMove.BUST, dp.play());
     }
+
+    @Test
+    public void dealerShouldStandWithBlackjack() {
+        BlackjackEngine mockEngine = Mockito.mock(BlackjackEngine.class);
+        DealerPlayer dp = new DealerPlayer(mockEngine);
+        dp.takeCard(new Card(Rank.TEN, Suite.SPADES));
+        dp.takeCard(new Card(Rank.ACE, Suite.SPADES));
+        assertEquals(BlackjackMove.STAND, dp.play());
+    }
 }

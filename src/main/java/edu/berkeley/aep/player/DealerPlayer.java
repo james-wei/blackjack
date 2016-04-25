@@ -17,6 +17,10 @@ public class DealerPlayer extends Player {
     }
 
     public BlackjackMove play() {
-        return BlackjackMove.BUST;
+        if (score() == BlackjackEngine.BUST) {
+            return BlackjackMove.BUST;
+        } else {
+            return BlackjackMove.STAND;
+        }
     }
 }
