@@ -3,7 +3,7 @@ package edu.berkeley.aep.player;
 import edu.berkeley.aep.deck.Card;
 import edu.berkeley.aep.deck.Rank;
 import edu.berkeley.aep.deck.Suite;
-import edu.berkeley.aep.game.BlackjackScorer;
+import edu.berkeley.aep.game.BlackjackEngine;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -74,8 +74,8 @@ public class HandTest {
     public void scoreOfJQKShouldBeBust() {
         Rank[] values = {Rank.JACK, Rank.QUEEN, Rank.KING};
         Hand h = createHand(values);
-        assertEquals(BlackjackScorer.BUST, h.score());
-        assertEquals(BlackjackScorer.BUST, h.softScore());
+        assertEquals(BlackjackEngine.BUST, h.score());
+        assertEquals(BlackjackEngine.BUST, h.softScore());
     }
 
     @Test

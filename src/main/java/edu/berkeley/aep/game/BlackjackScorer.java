@@ -14,14 +14,10 @@ import java.util.List;
  * Created by jwei on 4/5/16.
  */
 public class BlackjackScorer {
-
-    public static final int THRESHOLD = 21;
-    public static final int BUST = 22;
-
     public static int score(Hand hand) {
         List<Integer> scores = generateScores(hand);
         if (scores.size() == 0) {
-            return BUST;
+            return BlackjackEngine.BUST;
         } else {
             return Collections.max(scores);
         }
@@ -30,7 +26,7 @@ public class BlackjackScorer {
     public static int softScore(Hand hand) {
         List<Integer> scores = generateScores(hand);
         if (scores.size() == 0) {
-            return BUST;
+            return BlackjackEngine.BUST;
         } else {
             return Collections.min(scores);
         }
@@ -50,7 +46,7 @@ public class BlackjackScorer {
 
         List<Integer> scores = new ArrayList<Integer>();
         for (int aceScore : aceScores) {
-            if (nonAceScore + aceScore <= THRESHOLD) {
+            if (nonAceScore + aceScore <= BlackjackEngine.THRESHOLD) {
                 scores.add(nonAceScore + aceScore);
             }
         }
