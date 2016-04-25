@@ -5,6 +5,7 @@ import edu.berkeley.aep.game.BlackjackEngine;
 import edu.berkeley.aep.game.BlackjackMove;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
 /**
@@ -14,23 +15,32 @@ import java.io.InputStreamReader;
  */
 public class HumanPlayer extends Player {
 
+    private InputStream in;
+    private boolean mute;
+
     public HumanPlayer(BlackjackEngine engine) {
+        this(engine, System.in, false);
+    }
+
+    public HumanPlayer(BlackjackEngine engine, InputStream in, boolean mute) {
         super(engine);
+        this.in = in;
+        this.mute = mute;
     }
 
     public BlackjackMove play() {
-        printGameState();
+        if (!mute) printGameState();
         BlackjackMove move = null;
 
         if (score() == BlackjackEngine.BUST) {
-            System.out.println("Oops, you've busted!");
+            if (!mute) System.out.println("Oops, you've busted!");
             move = BlackjackMove.BUST;
         } else {
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
             char moveStr;
             while (move == null) {
                 try {
-                    System.out.println("What would you like to do? Type 'H' to hit or 'S' to stand.");
+                    if (!mute) System.out.println("What would you like to do? Type 'H' to hit or 'S' to stand.");
                     moveStr = br.readLine().toLowerCase().charAt(0);
                     switch (moveStr) {
                         case 'h':
@@ -43,7 +53,7 @@ public class HumanPlayer extends Player {
                             throw new Exception();
                     }
                 } catch (Exception e) {
-                    System.out.println("An error occurred while processing your input. Please try again.");
+                    if (!mute) System.out.println("An error occurred while processing your input. Please try again.");
                 }
             }
         }
